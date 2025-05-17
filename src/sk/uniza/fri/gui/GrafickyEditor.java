@@ -30,6 +30,7 @@ public class GrafickyEditor extends JFrame {
     private JLabel suvislyLabel;
     private JButton vypocitajSweepAlgoritmusButton;
     private JTextField kapacitaTF;
+    private JButton zrusSweepZobrazenieButton;
     private IOACanvas ioaCanvas;
     private double kapacitaVozidla;
 
@@ -62,7 +63,74 @@ public class GrafickyEditor extends JFrame {
         this.vypocitajSweepAlgoritmusButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GrafickyEditor.this.ioaCanvas.vypocitajSweep(Double.parseDouble(kapacitaTF.getText()));
+                if (GrafickyEditor.this.ioaCanvas.getSiet().getVrcholy().isEmpty()) {
+                    JOptionPane.showMessageDialog(
+                            GrafickyEditor.this,
+                            "V sieti nie sú žiadne vrcholy",
+                            "Žiadne vrcholy v sieti",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
+
+                try {
+                    switch (GrafickyEditor.this.ioaCanvas.sweepMozny(Double.parseDouble(kapacitaTF.getText()))) {
+                        case 0:
+                            GrafickyEditor.this.ioaCanvas.vypocitajSweep(Double.parseDouble(kapacitaTF.getText()));
+                            break;
+                        case 1:
+                            JOptionPane.showMessageDialog(
+                                    GrafickyEditor.this,
+                                    "Graf nie je spojitý, sweep nie je možný.",
+                                    "Graf nie je spojitý",
+                                    JOptionPane.ERROR_MESSAGE
+                            );
+                            break;
+                        case 2:
+                            JOptionPane.showMessageDialog(
+                                    GrafickyEditor.this,
+                                    "Niektorý z vrcholov nemá nastavenú požiadavku",
+                                    "Nenastavená požiadavka",
+                                    JOptionPane.ERROR_MESSAGE
+                            );
+                            break;
+                        case 3:
+                            JOptionPane.showMessageDialog(
+                                    GrafickyEditor.this,
+                                    "Požiadavka niektorého z vrcholov presahuje kapacitu vozidla",
+                                    "Kapacita vozidla presiahnutá",
+                                    JOptionPane.ERROR_MESSAGE
+                            );
+                            break;
+
+                        case 4:
+                            JOptionPane.showMessageDialog(
+                                    GrafickyEditor.this,
+                                    "V sieti nie je stredisko",
+                                    "Nie je stredisko",
+                                    JOptionPane.ERROR_MESSAGE
+                            );
+                            break;
+
+                        case 5:
+                            JOptionPane.showMessageDialog(
+                                    GrafickyEditor.this,
+                                    "V sieti je len jeden vrchol",
+                                    "Len jeden vrchol",
+                                    JOptionPane.ERROR_MESSAGE
+                            );
+                            break;
+                    }
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(
+                            GrafickyEditor.this,
+                            "Neplatná hodnota kapacity",
+                            "Zla kapacita",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }
+
             }
         });
 
@@ -149,6 +217,14 @@ public class GrafickyEditor extends JFrame {
             }
         });
 
+        zrusSweepZobrazenieButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GrafickyEditor.this.ioaCanvas.setVykresliSweep(false);
+                GrafickyEditor.this.ioaCanvas.repaint();
+            }
+        });
+
         platno.add(ioaCanvas);
         platno.revalidate();
         platno.repaint();
@@ -195,14 +271,14 @@ public class GrafickyEditor extends JFrame {
         ulozSietButton.setText("Uloz siet");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 9;
+        gbc.gridy = 10;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         rootComponent.add(ulozSietButton, gbc);
         ukonciEditovanieButton = new JButton();
         ukonciEditovanieButton.setText("Ukonci editovanie");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 10;
+        gbc.gridy = 11;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         rootComponent.add(ukonciEditovanieButton, gbc);
         textField2 = new JTextField();
@@ -230,21 +306,21 @@ public class GrafickyEditor extends JFrame {
         vycistiSietButton.setText("Vycisti siet");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 8;
+        gbc.gridy = 9;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         rootComponent.add(vycistiSietButton, gbc);
         cenyHranSaPocitajuRadioButton = new JRadioButton();
         cenyHranSaPocitajuRadioButton.setText("ceny hran sa pocitaju automatcky");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 9;
+        gbc.gridy = 10;
         gbc.anchor = GridBagConstraints.WEST;
         rootComponent.add(cenyHranSaPocitajuRadioButton, gbc);
         cenyHranSaZadajuRadioButton = new JRadioButton();
         cenyHranSaZadajuRadioButton.setText("ceny hran sa zadaju manualne");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 10;
+        gbc.gridy = 11;
         gbc.anchor = GridBagConstraints.WEST;
         rootComponent.add(cenyHranSaZadajuRadioButton, gbc);
         textField1 = new JTextField();
@@ -311,6 +387,13 @@ public class GrafickyEditor extends JFrame {
         gbc.gridy = 7;
         gbc.anchor = GridBagConstraints.WEST;
         rootComponent.add(spajajHranamiCheckBox, gbc);
+        zrusSweepZobrazenieButton = new JButton();
+        zrusSweepZobrazenieButton.setText("Zrus sweep zobrazenie");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 8;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        rootComponent.add(zrusSweepZobrazenieButton, gbc);
     }
 
     /**

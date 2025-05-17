@@ -64,6 +64,20 @@ public class IOACanvas extends JLayeredPane {
         });
     }
 
+    public int sweepMozny(double kapacita) {
+        return this.siet.sweepMozny(kapacita);
+
+    }
+
+    public boolean isVykresliSweep() {
+        return this.vykresliSweep;
+    }
+
+    public void setVykresliSweep(boolean vykresliSweep) {
+        this.vykresliSweep = vykresliSweep;
+    }
+
+
     public void obnovPlatnoZoSiete() {
         this.removeAll();
         this.vrcholy.clear();
@@ -80,8 +94,7 @@ public class IOACanvas extends JLayeredPane {
 
             vrchol.setPlatno(this);
             this.vrcholy.put(vrchol.getId(), bod);
-
-            this.add(vrchol);
+            this.add(vrchol, JLayeredPane.PALETTE_LAYER);
 
         }
 
@@ -194,6 +207,7 @@ public class IOACanvas extends JLayeredPane {
         if (klastre != null) {
             vykresliSweep = true;
         }
+        this.repaint();
 
     }
 
@@ -266,10 +280,11 @@ public class IOACanvas extends JLayeredPane {
 
 
     public void nakresliSipku(Graphics2D g2, int x1, int y1, int x2, int y2) {
+        g2.setStroke(new BasicStroke(4));
         g2.drawLine(x1, y1, x2, y2);
 
         double phi = Math.toRadians(20);
-        int barb = 10;
+        int barb = 20;
 
         double dx = x2 - x1;
         double dy = y2 - y1;
@@ -292,19 +307,29 @@ public class IOACanvas extends JLayeredPane {
     protected void paintComponent(Graphics g) {
         for (Component component : this.getComponents()) {
             if (component instanceof Hrana) {
-                ((Hrana) component).nakresliText(g);
+                if (!vykresliSweep) {
+                    ((Hrana) component).nakresliText(g);
+                    ((Hrana) component).setVykresliHranu(true);
+                } else {
+                    ((Hrana) component).setVykresliHranu(false);
+                }
             } else if (component instanceof Vrchol) {
                 ((Vrchol) component).nakresliText(g);
             }
         }
 
         if (vykresliSweep) {
+            int farbaIter = 0;
             for (Cluster cluster : klastre) {
-                g.setColor(Color.MAGENTA);
+                Color farba = new Color(farbaIter % 256, (int)(farbaIter * 0.5) % 256, (255 - farbaIter) % 256);
                 var cesta = cluster.getCesta();
                 for (int i = 0; i < cesta.size() - 1; i++) {
-                    nakresliSipku((Graphics2D) g.create(), (int)this.vrcholy.get(i).getX(), (int)this.vrcholy.get(i).getY(), (int)this.vrcholy.get(i + 1).getX(), (int)this.vrcholy.get(i + 1).getY());
+                    System.out.println("kresli sa sipka");
+                    g.setColor(farba);
+                    nakresliSipku((Graphics2D) g.create(), (int)this.vrcholy.get(cesta.get(i)).getX(), (int)this.vrcholy.get(cesta.get(i)).getY(),
+                            (int)this.vrcholy.get(cesta.get(i + 1)).getX(), (int)this.vrcholy.get(cesta.get(i + 1)).getY());
                 }
+                farbaIter += 100;
             }
         }
         g.setColor(Color.BLACK);

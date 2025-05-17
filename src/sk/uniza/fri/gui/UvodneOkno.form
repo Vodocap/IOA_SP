@@ -37,24 +37,6 @@
           <text value="Načítaj zo zadanych suborov"/>
         </properties>
       </component>
-      <component id="251ba" class="javax.swing.JButton" binding="grafickeZobrazenieButton" default-binding="true">
-        <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="Graficke zobrazenie/editovanie"/>
-        </properties>
-      </component>
-      <component id="afab4" class="javax.swing.JButton" binding="ukonciAplikaciuButton" default-binding="true">
-        <constraints>
-          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="Ukonči aplikáciu"/>
-        </properties>
-      </component>
       <component id="6ee9b" class="javax.swing.JTextField" binding="suborVrcholyTF">
         <constraints>
           <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
@@ -91,13 +73,22 @@
         </constraints>
         <properties/>
       </component>
-      <component id="cdad2" class="javax.swing.JButton" binding="nacitajZDefaultSuborovButton" default-binding="true">
+      <component id="251ba" class="javax.swing.JButton" binding="grafickeZobrazenieButton" default-binding="true">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <text value="Nacitaj z default suborov"/>
+          <text value="Graficke zobrazenie/editovanie"/>
+        </properties>
+      </component>
+      <component id="afab4" class="javax.swing.JButton" binding="ukonciAplikaciuButton" default-binding="true">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Ukonči aplikáciu"/>
         </properties>
       </component>
     </children>

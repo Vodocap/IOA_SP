@@ -20,7 +20,6 @@ public class UvodneOkno extends JFrame {
     private JButton ukonciAplikaciuButton;
     private JTextField suborVrcholyTF;
     private JTextField subroHranyTF;
-    private JButton nacitajZDefaultSuborovButton;
     private Siet siet;
 
 
@@ -111,20 +110,6 @@ public class UvodneOkno extends JFrame {
         gbc.gridy = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         hlOkno.add(nacitajZoSuboruButton, gbc);
-        grafickeZobrazenieButton = new JButton();
-        grafickeZobrazenieButton.setText("Graficke zobrazenie/editovanie");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        hlOkno.add(grafickeZobrazenieButton, gbc);
-        ukonciAplikaciuButton = new JButton();
-        ukonciAplikaciuButton.setText("Ukonči aplikáciu");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        hlOkno.add(ukonciAplikaciuButton, gbc);
         suborVrcholyTF = new JTextField();
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
@@ -153,13 +138,20 @@ public class UvodneOkno extends JFrame {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         hlOkno.add(subroHranyTF, gbc);
-        nacitajZDefaultSuborovButton = new JButton();
-        nacitajZDefaultSuborovButton.setText("Nacitaj z default suborov");
+        grafickeZobrazenieButton = new JButton();
+        grafickeZobrazenieButton.setText("Graficke zobrazenie/editovanie");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        hlOkno.add(nacitajZDefaultSuborovButton, gbc);
+        hlOkno.add(grafickeZobrazenieButton, gbc);
+        ukonciAplikaciuButton = new JButton();
+        ukonciAplikaciuButton.setText("Ukonči aplikáciu");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        hlOkno.add(ukonciAplikaciuButton, gbc);
     }
 
     /**

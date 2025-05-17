@@ -6,6 +6,7 @@ package sk.uniza.fri.nacitavanie;
  * @author matus
  */
 import sk.uniza.fri.gui.IOACanvas;
+import sk.uniza.fri.sweep.LabelAlgoritmus;
 
 import java.awt.*;
 import java.io.File;
@@ -27,6 +28,37 @@ public class Siet {
         this.ukladac = new Ukladac();
         idVrcholaCounter = 0;
         idHranyCounter = 0;
+    }
+
+    public int sweepMozny(double kapacitaVozidla) {
+        LabelAlgoritmus labelAlgoritmus = new LabelAlgoritmus(vrcholy);
+        if (!labelAlgoritmus.jeSpojity()) {
+            return 1;
+        }
+        boolean jeStredisko = false;
+        for (Integer i : vrcholy.keySet()) {
+            if (vrcholy.get(i).getPoziadavkaOrKapacita() == 0 && vrcholy.get(i).getTypVrchola() != TypVrchola.STREDISKO) {
+                return 2;
+            }
+
+            if (vrcholy.get(i).getPoziadavkaOrKapacita() > kapacitaVozidla && vrcholy.get(i).getTypVrchola() != TypVrchola.STREDISKO) {
+                return 3;
+            }
+
+            if (vrcholy.get(i).getTypVrchola() == TypVrchola.STREDISKO) {
+                jeStredisko = true;
+            }
+        }
+
+        if (!jeStredisko) {
+            return 4;
+        }
+
+        if (this.vrcholy.size() == 1) {
+            return 5;
+        }
+
+        return 0;
     }
 
     public HashMap<Integer,Vrchol> nacitaj(String hrany, String vrcholy) {
@@ -107,14 +139,6 @@ public class Siet {
 
     public void uloz(String vrcholySubor, String hranySubor) {
         this.ukladac.ulozDoSuborov(hranySubor, vrcholySubor, hrany, vrcholy);
-    }
-
-    private void normujSuradnice() {
-        for (Integer i : vrcholy.keySet()) {
-            Vrchol vrchol = this.vrcholy.get(i);
-            vrchol.setSurX((vrchol.getSurX() / 100) * 800);
-            vrchol.setSurY((vrchol.getSurY() / 100) * 600);
-        }
     }
 
     public void pridajVrchol(Vrchol novyVrchol) {

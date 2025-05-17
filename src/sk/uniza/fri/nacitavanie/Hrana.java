@@ -19,6 +19,7 @@ public class Hrana extends JComponent {
     private int idDo;
     private double cena;
     private boolean zakaz;
+    private boolean vykresliHranu = true;
     private IOACanvas platno;
     private Point start;
     private Point end;
@@ -75,21 +76,25 @@ public class Hrana extends JComponent {
     }
 
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
 
-        Graphics2D g2 = (Graphics2D) g.create();
-        g2.setColor(Color.BLACK);
-        g2.setStroke(new BasicStroke(2));
+        if (vykresliHranu) {
+            super.paintComponent(g);
 
-        if (this.jeZakazana()) {
-            g2.setColor(Color.RED);
-        } else {
+            Graphics2D g2 = (Graphics2D) g.create();
             g2.setColor(Color.BLACK);
+            g2.setStroke(new BasicStroke(2));
+
+            if (this.jeZakazana()) {
+                g2.setColor(Color.RED);
+            } else {
+                g2.setColor(Color.BLACK);
+            }
+
+            g2.drawLine(start.x - getX(), start.y - getY(), end.x - getX(), end.y - getY());
+
+            g2.dispose();
         }
 
-        g2.drawLine(start.x - getX(), start.y - getY(), end.x - getX(), end.y - getY());
-
-        g2.dispose();
     }
 
     public Point getStart() {
@@ -148,6 +153,18 @@ public class Hrana extends JComponent {
                 ", cena=" + cena +
                 ", zakaz=" + zakaz +
                 '}';
+    }
+
+    public boolean isVykresliHranu() {
+        return this.vykresliHranu;
+    }
+
+    public void setVykresliHranu(boolean vykresliHranu) {
+        this.vykresliHranu = vykresliHranu;
+    }
+
+    public boolean isZakaz() {
+        return this.zakaz;
     }
 
     public void setPlatno(IOACanvas platno) {
