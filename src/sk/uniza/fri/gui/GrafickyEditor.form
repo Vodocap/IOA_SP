@@ -7,15 +7,6 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="45717" class="javax.swing.JCheckBox" binding="pridajVrcholyCheckBox" default-binding="true">
-        <constraints>
-          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="pridaj vrcholy"/>
-        </properties>
-      </component>
       <grid id="aeb02" binding="platno" layout-manager="GridBagLayout">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -28,15 +19,6 @@
         <border type="none"/>
         <children/>
       </grid>
-      <component id="d7e1d" class="javax.swing.JCheckBox" binding="mazVrcholyCheckBox" default-binding="true">
-        <constraints>
-          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="maz vrcholy"/>
-        </properties>
-      </component>
       <component id="5cd8e" class="javax.swing.JButton" binding="ulozSietButton" default-binding="true">
         <constraints>
           <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -89,24 +71,6 @@
         </constraints>
         <properties>
           <text value="Vycisti siet"/>
-        </properties>
-      </component>
-      <component id="1b6be" class="javax.swing.JCheckBox" binding="mazHranyCheckBox" default-binding="true">
-        <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="maz hrany"/>
-        </properties>
-      </component>
-      <component id="91ca7" class="javax.swing.JCheckBox" binding="spajajHranamiCheckBox" default-binding="true">
-        <constraints>
-          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="spajaj hranami"/>
         </properties>
       </component>
       <component id="dd929" class="javax.swing.JRadioButton" binding="cenyHranSaPocitajuRadioButton" default-binding="true">
@@ -172,6 +136,42 @@
         </constraints>
         <properties>
           <text value="Nastav kapacitu vozidla pre sweep "/>
+        </properties>
+      </component>
+      <component id="1b6be" class="javax.swing.JCheckBox" binding="mazHranyCheckBox" default-binding="true">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="maz hrany"/>
+        </properties>
+      </component>
+      <component id="d7e1d" class="javax.swing.JCheckBox" binding="mazVrcholyCheckBox" default-binding="true">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="maz vrcholy"/>
+        </properties>
+      </component>
+      <component id="45717" class="javax.swing.JCheckBox" binding="pridajVrcholyCheckBox" default-binding="true">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="pridaj vrcholy"/>
+        </properties>
+      </component>
+      <component id="91ca7" class="javax.swing.JCheckBox" binding="spajajHranamiCheckBox" default-binding="true">
+        <constraints>
+          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="spajaj hranami"/>
         </properties>
       </component>
     </children>

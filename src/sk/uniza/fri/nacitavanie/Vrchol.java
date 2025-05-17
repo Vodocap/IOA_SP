@@ -62,6 +62,13 @@ public class Vrchol extends JComponent {
 
     }
 
+    public void nakresliText(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g.create();
+
+        g2.setColor(Color.RED);
+        g2.setFont(new Font("Arial", Font.BOLD, 12));
+        g2.drawString(String.valueOf(this.id), (int)surX - 20, (int)surY + 20);
+    }
 
     public void odstranHranuSIdVrchola(int idVrchola) {
         for (int i = 0; i < this.spojenie.size(); i++) {

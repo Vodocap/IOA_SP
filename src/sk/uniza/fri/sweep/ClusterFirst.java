@@ -67,16 +67,23 @@ public class ClusterFirst {
 
         for (Cluster cluster : klasteri) {
             int aktualny = idStrediska;
+            cluster.cesta.add(idStrediska);
             for (int i = 0; i < cluster.vrchols.size(); i++) {
                 double najblizsi = Double.MAX_VALUE;
                 int najblizsiVrchol = 0;
 
-                for (Vrchol vrchol : cluster.vrchols) {
-                    if (labelAlgoritmus.getShortestPath(aktualny, vrchol.getId()).getVzdialenost() < najblizsi && !cluster.cesta.contains(vrchol.getId())) {
-                        najblizsiVrchol = vrchol.getId();
-                        najblizsi = labelAlgoritmus.getShortestPath(aktualny, vrchol.getId()).getVzdialenost();
+                if (cluster.vrchols.size() == 1) {
+                    najblizsiVrchol = cluster.vrchols.get(0).getId();
+                } else {
+                    for (Vrchol vrchol : cluster.vrchols) {
+                        System.out.println("Hľadám cestu z " + aktualny + " do " + vrchol.getId());
+                        if (labelAlgoritmus.getShortestPath(aktualny, vrchol.getId()).getVzdialenost() < najblizsi && !cluster.cesta.contains(vrchol.getId())) {
+                            najblizsiVrchol = vrchol.getId();
+                            najblizsi = labelAlgoritmus.getShortestPath(aktualny, vrchol.getId()).getVzdialenost();
+                        }
                     }
                 }
+
                 aktualny = najblizsiVrchol;
                 cluster.cesta.add(aktualny);
                 cluster.vzdialenost += najblizsi;

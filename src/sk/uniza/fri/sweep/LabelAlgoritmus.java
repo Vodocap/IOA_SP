@@ -42,12 +42,16 @@ public class LabelAlgoritmus {
             } else {
 
                 Vrchol vrchol = this.front.remove();
+
                 for (Hrana naslednik : vrchol.getSpojenie()) {
 
                     if (this.znacky.get(vrchol.getId()) + naslednik.getCena() < this.znacky.get(naslednik.getIdDo())) {
                         this.znacky.replace(naslednik.getIdDo(), this.znacky.get(vrchol.getId()) + naslednik.getCena());
 
-                        this.front.add(this.vrcholy.get(naslednik.getIdDo()));
+                        Vrchol naslednikVrchol = this.vrcholy.get(naslednik.getIdDo());
+                        if (naslednikVrchol != null) {
+                            this.front.add(naslednikVrchol);
+                        }
                         predchodcaMap.put(naslednik.getIdDo(), vrchol.getId());
                     }
 
@@ -94,6 +98,7 @@ public class LabelAlgoritmus {
     }
 
     public VysledokShortestpath getShortestPath(int zaciatok, int koniec) {
+
         var erejlistCesta = this.algoritmus(zaciatok, koniec);
 
         double vyslednaVzdialenost = this.znacky.get(koniec);

@@ -12,7 +12,7 @@ public class Cluster {
     public Cluster() {
         this.vrchols = new ArrayList<>();
         this.cesta = new ArrayList<>();
-        this.cesta.add(3);
+
     }
 
     @Override

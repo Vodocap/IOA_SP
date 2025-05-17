@@ -62,7 +62,7 @@ public class GrafickyEditor extends JFrame {
         this.vypocitajSweepAlgoritmusButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                var clusteryArrayList = GrafickyEditor.this.ioaCanvas.vypocitajSweep(Double.parseDouble(kapacitaTF.getText()));
+                GrafickyEditor.this.ioaCanvas.vypocitajSweep(Double.parseDouble(kapacitaTF.getText()));
             }
         });
 
@@ -180,31 +180,17 @@ public class GrafickyEditor extends JFrame {
     private void $$$setupUI$$$() {
         rootComponent = new JPanel();
         rootComponent.setLayout(new GridBagLayout());
-        pridajVrcholyCheckBox = new JCheckBox();
-        pridajVrcholyCheckBox.setText("pridaj vrcholy");
-        GridBagConstraints gbc;
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 7;
-        gbc.anchor = GridBagConstraints.WEST;
-        rootComponent.add(pridajVrcholyCheckBox, gbc);
         platno = new JPanel();
         platno.setLayout(new GridBagLayout());
         platno.setMinimumSize(new Dimension(500, 500));
         platno.setPreferredSize(new Dimension(500, 500));
+        GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.BOTH;
         rootComponent.add(platno, gbc);
-        mazVrcholyCheckBox = new JCheckBox();
-        mazVrcholyCheckBox.setText("maz vrcholy");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 6;
-        gbc.anchor = GridBagConstraints.WEST;
-        rootComponent.add(mazVrcholyCheckBox, gbc);
         ulozSietButton = new JButton();
         ulozSietButton.setText("Uloz siet");
         gbc = new GridBagConstraints();
@@ -247,20 +233,6 @@ public class GrafickyEditor extends JFrame {
         gbc.gridy = 8;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         rootComponent.add(vycistiSietButton, gbc);
-        mazHranyCheckBox = new JCheckBox();
-        mazHranyCheckBox.setText("maz hrany");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        gbc.anchor = GridBagConstraints.WEST;
-        rootComponent.add(mazHranyCheckBox, gbc);
-        spajajHranamiCheckBox = new JCheckBox();
-        spajajHranamiCheckBox.setText("spajaj hranami");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 8;
-        gbc.anchor = GridBagConstraints.WEST;
-        rootComponent.add(spajajHranamiCheckBox, gbc);
         cenyHranSaPocitajuRadioButton = new JRadioButton();
         cenyHranSaPocitajuRadioButton.setText("ceny hran sa pocitaju automatcky");
         gbc = new GridBagConstraints();
@@ -311,6 +283,34 @@ public class GrafickyEditor extends JFrame {
         gbc.gridy = 5;
         gbc.anchor = GridBagConstraints.WEST;
         rootComponent.add(label3, gbc);
+        mazHranyCheckBox = new JCheckBox();
+        mazHranyCheckBox.setText("maz hrany");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.anchor = GridBagConstraints.WEST;
+        rootComponent.add(mazHranyCheckBox, gbc);
+        mazVrcholyCheckBox = new JCheckBox();
+        mazVrcholyCheckBox.setText("maz vrcholy");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.anchor = GridBagConstraints.WEST;
+        rootComponent.add(mazVrcholyCheckBox, gbc);
+        pridajVrcholyCheckBox = new JCheckBox();
+        pridajVrcholyCheckBox.setText("pridaj vrcholy");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.anchor = GridBagConstraints.WEST;
+        rootComponent.add(pridajVrcholyCheckBox, gbc);
+        spajajHranamiCheckBox = new JCheckBox();
+        spajajHranamiCheckBox.setText("spajaj hranami");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        gbc.anchor = GridBagConstraints.WEST;
+        rootComponent.add(spajajHranamiCheckBox, gbc);
     }
 
     /**

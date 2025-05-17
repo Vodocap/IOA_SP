@@ -40,7 +40,8 @@ public class Hrana extends JComponent {
         int minY = Math.min(start.y, end.y);
         int maxX = Math.max(start.x, end.x);
         int maxY = Math.max(start.y, end.y);
-
+        System.out.println(start.toString());
+        System.out.println(end.toString());
         setBounds(minX, minY, maxX - minX == 0 ? 1 : maxX - minX, maxY - minY == 0 ? 1 : maxY - minY);
         addMouseListener(new MouseAdapter() {
             @Override
@@ -88,30 +89,6 @@ public class Hrana extends JComponent {
 
         g2.drawLine(start.x - getX(), start.y - getY(), end.x - getX(), end.y - getY());
 
-
-        int x1 = start.x - getX();
-        int y1 = start.y - getY();
-        int x2 = end.x - getX();
-        int y2 = end.y - getY();
-
-        int stredX = (x1 + x2) / 2;
-        int stredY = (y1 + y2) / 2;
-
-        int dx = x2 - x1;
-        int dy = y2 - y1;
-        double dlzka = Math.sqrt(dx * dx + dy * dy);
-        double offset = 15;
-
-        double normalX = -dy / dlzka;
-        double normalY = dx / dlzka;
-
-        int textX = (int)(stredX + normalX * offset);
-        int textY = (int)(stredY + normalY * offset);
-
-        g2.setColor(Color.BLUE);
-        g2.setFont(new Font("Arial", Font.BOLD, 12));
-        g2.drawString(String.format("%.2f", cena), textX, textY);
-
         g2.dispose();
     }
 
@@ -131,6 +108,36 @@ public class Hrana extends JComponent {
     public void setEnd(Point end) {
         this.end = end;
         repaint();
+    }
+
+    public void nakresliText(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setColor(Color.BLUE);
+
+        int x1 = start.x;
+        int y1 = start.y;
+        int x2 = end.x;
+        int y2 = end.y;
+
+        int stredX = (x1 + x2) / 2;
+        int stredY = (y1 + y2) / 2;
+
+        int dx = x2 - x1;
+        int dy = y2 - y1;
+        double dlzka = Math.sqrt(dx * dx + dy * dy);
+        double offset = 15;
+
+        double normalX = -dy / dlzka;
+        double normalY = dx / dlzka;
+
+        int textX = (int)(stredX + normalX * offset);
+        int textY = (int)(stredY + normalY * offset);
+
+
+        g2.setFont(new Font("Arial", Font.BOLD, 12));
+        System.out.println(stredX);
+        System.out.println(stredY);
+        g2.drawString(String.format("%.2f", cena), textX, textY);
     }
 
     @Override
