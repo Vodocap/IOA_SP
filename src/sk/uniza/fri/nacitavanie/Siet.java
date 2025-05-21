@@ -62,7 +62,8 @@ public class Siet {
     }
 
     public HashMap<Integer,Vrchol> nacitaj(String hrany, String vrcholy) {
-
+        this.vrcholy.clear();
+        this.hrany.clear();
         System.out.println("Nacitava sa dopravna siet zo suborov. . . .");
         File hranySubor = new File(hrany);
         File vrcholySubor = new File(vrcholy);
@@ -97,7 +98,6 @@ public class Siet {
                 int idZ = Integer.parseInt(splitnuty[1]);
                 int idDo = Integer.parseInt(splitnuty[2]);
                 double cena = Double.parseDouble(splitnuty[3]);
-                boolean zakaz = Integer.parseInt(splitnuty[4]) == 1;
 
                 Vrchol vrcholZ = this.vrcholy.get(idZ);
                 Vrchol vrcholDo = this.vrcholy.get(idDo);
@@ -106,7 +106,6 @@ public class Siet {
                         new Point((int) vrcholZ.getSurX(), (int) vrcholZ.getSurY()),
                         new Point((int) vrcholDo.getSurX(), (int) vrcholDo.getSurY()),
                         cena);
-                pridanaHrana.setZakaz(zakaz);
                 pridanaHrana.setIdHrany(idHrany);
 
                 this.hrany.put(idHrany, pridanaHrana);
@@ -161,9 +160,9 @@ public class Siet {
     public void spojHranou(int iDVrchola1, int iDVrchola2, Hrana hrana, double cena) {
 
         Hrana novaHranaOpacna = new Hrana(iDVrchola2, iDVrchola1, cena);
-        this.hrany.put(getIdNHranyaNajnovsiAIteruj(), hrana);
-        this.hrany.put(getIdNHranyaNajnovsiAIteruj(), novaHranaOpacna);
         novaHranaOpacna.setIdHrany(getIdNHranyaNajnovsiAIteruj());
+        this.hrany.put(hrana.getIdHrany(), hrana);
+        this.hrany.put(novaHranaOpacna.getIdHrany(), novaHranaOpacna);
         this.vrcholy.get(iDVrchola1).pridajVychadzajucuHranu(hrana);
         this.vrcholy.get(iDVrchola2).pridajVychadzajucuHranu(novaHranaOpacna);
     }

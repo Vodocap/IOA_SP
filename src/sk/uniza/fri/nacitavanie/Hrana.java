@@ -18,7 +18,6 @@ public class Hrana extends JComponent {
     private int idZ;
     private int idDo;
     private double cena;
-    private boolean zakaz;
     private boolean vykresliHranu = true;
     private IOACanvas platno;
     private Point start;
@@ -84,17 +83,18 @@ public class Hrana extends JComponent {
             g2.setColor(Color.BLACK);
             g2.setStroke(new BasicStroke(2));
 
-            if (this.jeZakazana()) {
-                g2.setColor(Color.RED);
-            } else {
-                g2.setColor(Color.BLACK);
-            }
-
             g2.drawLine(start.x - getX(), start.y - getY(), end.x - getX(), end.y - getY());
 
             g2.dispose();
         }
 
+    }
+
+    public boolean jeOpacna(Hrana hrana) {
+        if (hrana.getIdZ() == idDo && hrana.getIdDo() == idZ) {
+            return true;
+        }
+        return false;
     }
 
     public Point getStart() {
@@ -151,7 +151,6 @@ public class Hrana extends JComponent {
                 "idZ=" + idZ +
                 ", idDo=" + idDo +
                 ", cena=" + cena +
-                ", zakaz=" + zakaz +
                 '}';
     }
 
@@ -161,10 +160,6 @@ public class Hrana extends JComponent {
 
     public void setVykresliHranu(boolean vykresliHranu) {
         this.vykresliHranu = vykresliHranu;
-    }
-
-    public boolean isZakaz() {
-        return this.zakaz;
     }
 
     public void setPlatno(IOACanvas platno) {
@@ -184,14 +179,6 @@ public class Hrana extends JComponent {
 
     public int getIdDo() {
         return idDo;
-    }
-
-    public void setZakaz(boolean zakaz) {
-        this.zakaz = zakaz;
-    }
-
-    public boolean jeZakazana() {
-        return this.zakaz;
     }
 
     public void setIdDo(int idDo) {

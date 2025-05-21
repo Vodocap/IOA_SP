@@ -14,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class IOACanvas extends JLayeredPane {
@@ -157,6 +158,7 @@ public class IOACanvas extends JLayeredPane {
                 Point end = new Point((int) druhyVrchol.getSurX(), (int) druhyVrchol.getSurY());
 
                 Hrana novaHrana = new Hrana(prvyVrcholNaSpojenie.getId(), druhyVrchol.getId(), start, end, 0.0);
+                novaHrana.setIdHrany(IOACanvas.this.siet.getIdNHranyaNajnovsiAIteruj());
                 novaHrana.setPlatno(this);
                 add(novaHrana);
                 novaHrana.repaint();
@@ -305,14 +307,18 @@ public class IOACanvas extends JLayeredPane {
 
     @Override
     protected void paintComponent(Graphics g) {
+        Hrana predoslaHrana = null;
         for (Component component : this.getComponents()) {
             if (component instanceof Hrana) {
                 if (!vykresliSweep) {
-                    ((Hrana) component).nakresliText(g);
+                    if (!(predoslaHrana != null && ((Hrana) component).jeOpacna(predoslaHrana))) {
+                        ((Hrana) component).nakresliText(g);
+                    }
                     ((Hrana) component).setVykresliHranu(true);
                 } else {
                     ((Hrana) component).setVykresliHranu(false);
                 }
+                predoslaHrana = (Hrana) component;
             } else if (component instanceof Vrchol) {
                 ((Vrchol) component).nakresliText(g);
             }
@@ -320,8 +326,12 @@ public class IOACanvas extends JLayeredPane {
 
         if (vykresliSweep) {
             int farbaIter = 0;
+            HashMap<Integer, Color> farbyKalstra = new HashMap<>();
+            int cisloKlastra = 1;
+
             for (Cluster cluster : klastre) {
-                Color farba = new Color(farbaIter % 256, (int)(farbaIter * 0.5) % 256, (255 - farbaIter) % 256);
+                Color farba = new Color(farbaIter % 255, (int)(farbaIter * 0.5) % 255, Math.abs(255 - farbaIter) % 255);
+                farbyKalstra.put(cisloKlastra, farba);
                 var cesta = cluster.getCesta();
                 for (int i = 0; i < cesta.size() - 1; i++) {
                     System.out.println("kresli sa sipka");
@@ -329,7 +339,30 @@ public class IOACanvas extends JLayeredPane {
                     nakresliSipku((Graphics2D) g.create(), (int)this.vrcholy.get(cesta.get(i)).getX(), (int)this.vrcholy.get(cesta.get(i)).getY(),
                             (int)this.vrcholy.get(cesta.get(i + 1)).getX(), (int)this.vrcholy.get(cesta.get(i + 1)).getY());
                 }
+                cisloKlastra++;
                 farbaIter += 100;
+            }
+
+            int legendaX = this.getWidth() - 80;
+            int legendaY = 20;
+
+            g.setFont(new Font("Arial", Font.PLAIN, 12));
+            g.setColor(Color.BLACK);
+            g.drawString("Legenda:", legendaX, legendaY);
+            legendaY += 15;
+
+            for (Map.Entry<Integer, Color> entry : farbyKalstra.entrySet()) {
+                int klasterId = entry.getKey();
+                Color farba = entry.getValue();
+
+                g.setColor(farba);
+                g.fillRect(legendaX, legendaY, 15, 15);
+
+                g.setColor(Color.BLACK);
+                g.drawRect(legendaX, legendaY, 15, 15);
+                g.drawString("Klaster " + klasterId, legendaX + 20, legendaY + 12);
+
+                legendaY += 20;
             }
         }
         g.setColor(Color.BLACK);

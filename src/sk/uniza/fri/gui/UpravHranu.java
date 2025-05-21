@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
  */
 public class UpravHranu extends JFrame {
     private JTextField cenaHranyTF;
-    private JCheckBox zakazHranyCheckBox;
     private JButton ukonciEditaciuButton;
     private JButton potvrdZmenyButton;
     private JPanel rootComponent;
@@ -32,15 +31,7 @@ public class UpravHranu extends JFrame {
 
         UpravHranu.this.cenaHranyTF.setText(String.valueOf(hrana.getCena()));
 
-        if (this.hrana.jeZakazana()) {
 
-            zakazHranyCheckBox.setSelected(true);
-
-        } else {
-
-            zakazHranyCheckBox.setSelected(false);
-
-        }
         this.ukonciEditaciuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -52,14 +43,17 @@ public class UpravHranu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                UpravHranu.this.hrana.setCena(Double.parseDouble(cenaHranyTF.getText()));
+                var hrana = UpravHranu.this.hrana;
+                hrana.setCena(Double.parseDouble(cenaHranyTF.getText()));
+                var hranaPlusJedna = UpravHranu.this.platno.getSiet().getHrany().get(hrana.getIdHrany() + 1);
+                var hranaMinusJedna = UpravHranu.this.platno.getSiet().getHrany().get(hrana.getIdHrany() - 1);
 
-                if (zakazHranyCheckBox.isSelected()) {
-                    UpravHranu.this.hrana.setZakaz(true);
-
-                } else {
-                    UpravHranu.this.hrana.setZakaz(false);
+                if (hranaPlusJedna != null && hrana.jeOpacna(hranaPlusJedna)) {
+                    hranaPlusJedna.setCena(Double.parseDouble(cenaHranyTF.getText()));
+                } else if (hranaMinusJedna != null && hrana.jeOpacna(hranaMinusJedna)) {
+                    hranaMinusJedna.setCena(Double.parseDouble(cenaHranyTF.getText()));
                 }
+
                 UpravHranu.this.platno.repaint();
             }
         });
@@ -107,23 +101,16 @@ public class UpravHranu extends JFrame {
         ukonciEditaciuButton.setText("Ukonci editaciu");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 3;
+        gbc.gridy = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         rootComponent.add(ukonciEditaciuButton, gbc);
         potvrdZmenyButton = new JButton();
         potvrdZmenyButton.setText("Potvrd zmeny");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 2;
+        gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         rootComponent.add(potvrdZmenyButton, gbc);
-        zakazHranyCheckBox = new JCheckBox();
-        zakazHranyCheckBox.setText("Zakaz hrany");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 1;
-        gbc.anchor = GridBagConstraints.WEST;
-        rootComponent.add(zakazHranyCheckBox, gbc);
     }
 
     /**

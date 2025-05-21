@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * 12. 4. 2025 - 13:32
@@ -20,25 +21,37 @@ public class Ukladac {
         try (BufferedWriter zapisovacVrcholy = new BufferedWriter(new FileWriter(suborVrcholy));
              BufferedWriter zapisovacHrany = new BufferedWriter(new FileWriter(suborHrany))) {
 
-            for (Vrchol v : vrcholy.values()) {
+            System.out.println("Zapisujem vrcholy . . . ");
+            Iterator<Vrchol> iteratorV = vrcholy.values().iterator();
+            while (iteratorV.hasNext()) {
+                Vrchol v = iteratorV.next();
                 String riadok = v.getId() + " " +
                         v.getSurX() + " " +
                         v.getSurY() + " " +
                         v.getPoziadavkaOrKapacita() + " " +
                         v.getTypVrchola().getCislo();
-                zapisovacVrcholy.write(riadok);
-                zapisovacVrcholy.newLine();
-            }
 
-            for (Hrana h : hrany.values()) {
-                int zakazCislo = h.jeZakazana() ? 1 : 0;
+                zapisovacVrcholy.write(riadok);
+
+                if (iteratorV.hasNext()) {
+                    zapisovacVrcholy.newLine();
+                }
+            }
+            System.out.println("Zapisujem hrany . . . ");
+            Iterator<Hrana> iteratorH = hrany.values().iterator();
+            while (iteratorH.hasNext()) {
+                Hrana h = iteratorH.next();
+
                 String riadok = h.getIdHrany() + " " +
                         h.getIdZ() + " " +
                         h.getIdDo() + " " +
-                        h.getCena() + " " +
-                        zakazCislo;
+                        h.getCena();
+
                 zapisovacHrany.write(riadok);
-                zapisovacHrany.newLine();
+
+                if (iteratorH.hasNext()) {
+                    zapisovacHrany.newLine();
+                }
             }
 
             System.out.println("Uloženie prebehlo úspešne!");
